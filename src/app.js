@@ -1,5 +1,7 @@
 import express from "express";
-import router from "./routers";
+import productRouter from "./routers/products";
+import userRouter from "./routers/users";
+import postRouter from "./routers/posts";
 
 const app = express();
 
@@ -14,8 +16,27 @@ app.get("/", (req, res) => {
   res.send("Chào mừng đến với API sản phẩm!");
 });
 
-app.use("/api", router);
 app.use(express.json());
-app.listen(3000, () => {
+
+// Định nghĩa route GET /
+
+// .get : Method HTTP: GET
+// "/": Endpoint API - URL
+// function (req, res) :
+// req: du lieu gui tu client (Frontend)
+// res: du lieu server tra ve cho client (FE)
+// app.get("/", (req, res) => {
+  //   res.send("Hello, chao cac ban");
+  // });
+  
+  
+  app.use("/api/posts",postRouter)
+  app.use("/api/users",userRouter)
+  app.use("/api/products",productRouter)
+  
+  
+  
+  
+  app.listen(3000, () => {
   console.log(`Server is running on port http://localhost:3000`);
 });
