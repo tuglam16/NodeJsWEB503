@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getPost,getPostById,addPost,updatePost,deletePost } from "../controllers/post";
+import { getPost,getPostById,addPost,updatePost,deletePost,searchPost } from "../controllers/post";
 const postRouter = Router();
 // Fake data lưu tạm trong mảng
 
@@ -34,6 +34,9 @@ postRouter.put("/:id",updatePost);
 postRouter.delete("/:id",deletePost);
 
 
+// GET /api/posts?search=keyword
+
+postRouter.get("/", searchPost);
 // postRouter.get("/detail/:id",(req,res)=>{
 //         console.log(req.params?.id);
 //     res.send("Post detail co id la :" + req.params?.id)

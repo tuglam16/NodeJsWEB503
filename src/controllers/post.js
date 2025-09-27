@@ -57,3 +57,36 @@ export function deletePost(req, res){
   const deletedPost = posts.splice(index, 1);
   res.json(deletedPost[0]);
 }
+
+export function searchPost(req,res){
+ try {
+    const { search } = req.query;
+
+    // Nếu có tham số search
+    if (search) {
+      const keyword = search.toLowerCase().trim();
+
+      const filteredPosts = posts.filter((post) =>
+        post.title.toLowerCase().includes(keyword)
+      );
+
+      // Không tìm thấy bài viết nào
+      if (filteredPosts.length === 0) {
+        return res.json([]); // trả về mảng rỗng
+      }
+
+      return res.json(filteredPosts);
+    }
+
+    // Nếu không có tham số search
+    if (posts.length === 0) {
+      return res.status(404).json({ error: "No posts available" });
+    }
+
+    return res.json(posts);
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: "Server error", message: error.message });
+  }
+}
