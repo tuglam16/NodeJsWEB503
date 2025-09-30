@@ -36,7 +36,7 @@ postRouter.delete("/:id",deletePost);
 
 // GET /api/posts?search=keyword
 
-postRouter.get("/", searchPost);
+// postRouter.get("/", searchPost);
 // postRouter.get("/detail/:id",(req,res)=>{
 //         console.log(req.params?.id);
 //     res.send("Post detail co id la :" + req.params?.id)
