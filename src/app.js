@@ -3,6 +3,7 @@ import productRouter from "./routers/products.router";
 import userRouter from "./routers/users";
 import postRouter from "./routers/posts";
 import mongoose from "mongoose";
+import authorRouter from "./routers/author.router";
 
 const app = express();
 
@@ -39,7 +40,7 @@ app.get("/", (req, res) => {
   app.use("/api/posts",postRouter)
   app.use("/api/users",userRouter)
   app.use("/api/products",productRouter)
-  
+  app.use("/api/author",authorRouter)
   
   
   

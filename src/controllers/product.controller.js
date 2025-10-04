@@ -1,7 +1,7 @@
 import Product from "../models/Product.model";
 
 export async function getProduct(req,res) {
-    try {
+  try {
     // Lấy query params
     const {
       _page = 1,
@@ -51,6 +51,22 @@ export async function getProduct(req,res) {
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
+}
+
+export async function getProductById(req,res) {
+    try {
+        const product = await Product.findById(req.params.id)
+        if (!product) {
+        return res.status(404).json({ message: "Không tìm thấy sản phẩm" });
+    }
+
+    return res.status(200).json({
+        message: "Lấy dữ liệu thành công",
+        data: product,
+    });
+    } catch (error) {
+        return res.status(400).json({ message: error.message });
+    }
 }
 
 export async function addProduct(req,res) {
