@@ -15,7 +15,7 @@ const productSchema = new mongoose.Schema(
       type: String,
     },
     category_id: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.String,
       ref: "Category", // tham chiếu tới Category
       required: true,
     }

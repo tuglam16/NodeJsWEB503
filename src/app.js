@@ -1,5 +1,5 @@
 import express from "express";
-import productRouter from "./routers/products";
+import productRouter from "./routers/products.router";
 import userRouter from "./routers/users";
 import postRouter from "./routers/posts";
 import mongoose from "mongoose";
