@@ -38,9 +38,10 @@ app.get("/", (req, res) => {
   
   
   app.use("/api/posts",postRouter)
-  app.use("/api/users",userRouter)
+  // app.use("/api/users",userRouter)
   app.use("/api/products",productRouter)
   app.use("/api/author",authorRouter)
+  app.use("/api/auth",userRouter)
   
   
   
