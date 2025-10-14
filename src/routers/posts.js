@@ -4,23 +4,6 @@ const postRouter = Router();
 // Fake data lưu tạm trong mảng
 
 postRouter.get("/",getPost)
-// postRouter.get("/greet", (req,res)=>{
-//         console.log(req.query?.name);
-//     res.send("Hello :" + req.query?.name)
-// })
-
-// postRouter.get("/sum", (req, res) => {
-//   const { a, b } = req.query;
-//   const numA = Number(a);
-//   const numB = Number(b);
-
-//   if (isNaN(numA) || isNaN(numB)) {
-//     return res.status(400).send("a và b phải là số");
-//   }
-
-//   res.send(`Tổng của ${numA} + ${numB} = ${numA + numB}`);
-// });
-
 
 // 2. GET /api/posts/:id - Lấy chi tiết bài viết theo id
 postRouter.get("/:id", getPostById);
@@ -34,17 +17,5 @@ postRouter.put("/:id",updatePost);
 postRouter.delete("/:id",deletePost);
 
 
-// GET /api/posts?search=keyword
-
-// postRouter.get("/", searchPost);
-// postRouter.get("/detail/:id",(req,res)=>{
-//         console.log(req.params?.id);
-//     res.send("Post detail co id la :" + req.params?.id)
-// });
-
-postRouter.post("/", (req,res)=>{
-    res.send(req.body)
-    res.json({body: req.body})
-})
 
 export default postRouter;

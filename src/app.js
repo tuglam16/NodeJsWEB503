@@ -1,9 +1,9 @@
 import express from "express";
 import productRouter from "./routers/products.router";
-import userRouter from "./routers/users";
 import postRouter from "./routers/posts";
 import mongoose from "mongoose";
 import authorRouter from "./routers/author.router";
+import userRouter from "./routers/user.router";
 
 const app = express();
 
@@ -25,20 +25,7 @@ app.get("/", (req, res) => {
 });
 
 
-// Định nghĩa route GET /
-
-// .get : Method HTTP: GET
-// "/": Endpoint API - URL
-// function (req, res) :
-// req: du lieu gui tu client (Frontend)
-// res: du lieu server tra ve cho client (FE)
-// app.get("/", (req, res) => {
-  //   res.send("Hello, chao cac ban");
-  // });
-  
-  
   app.use("/api/posts",postRouter)
-  // app.use("/api/users",userRouter)
   app.use("/api/products",productRouter)
   app.use("/api/author",authorRouter)
   app.use("/api/auth",userRouter)

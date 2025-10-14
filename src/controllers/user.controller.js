@@ -1,9 +1,9 @@
-const bcrypt = require("bcrypt");
-const Joi = require("joi");
-const User = require("../models/user.model");
+import User from "../models/user.model.js";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import Joi from "joi";
 
-// [POST] /api/users/register
-const registerUser = async (req, res) => {
+export const registerUser = async (req, res) => {
   try {
     //  Joi validation
     const schema = Joi.object({
@@ -53,4 +53,60 @@ const registerUser = async (req, res) => {
   }
 };
 
-module.exports = { registerUser };
+const loginSchema = Joi.object({
+  email: Joi.string().email().required().messages({
+    "string.empty": "Email không được để trống",
+    "string.email": "Email không hợp lệ",
+  }),
+  password: Joi.string().min(6).required().messages({
+    "string.empty": "Mật khẩu không được để trống",
+    "string.min": "Mật khẩu phải có ít nhất 6 ký tự",
+  }),
+});
+
+export const loginUser = async (req, res) => {
+  try {
+    // Validate đầu vào
+    const { error } = loginSchema.validate(req.body);
+    if (error) {
+      return res.status(400).json({ message: error.details[0].message });
+    }
+
+    const { email, password } = req.body;
+
+    // Tìm user trong MongoDB
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res
+        .status(401)
+        .json({ message: "Email hoặc mật khẩu không đúng" });
+    }
+
+    //So sánh mật khẩu
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res
+        .status(401)
+        .json({ message: "Email hoặc mật khẩu không đúng" });
+    }
+
+    // Tạo JWT Token
+    const token = jwt.sign(
+      { id: user._id, email: user.email },
+      process.env.JWT_SECRET || "secretKey",
+      { expiresIn: "1h" }
+    );
+
+    //Trả kết quả thành công
+    return res.status(200).json({
+      message: "Đăng nhập thành công",
+      token,
+    });
+  } catch (err) {
+    //Lỗi server (DB hoặc logic)
+    console.error("Lỗi đăng nhập:", err);
+    return res
+      .status(500)
+      .json({ message: "Lỗi máy chủ, vui lòng thử lại sau" });
+  }
+};
