@@ -24,14 +24,11 @@ app.get("/", (req, res) => {
   res.send("Chào mừng đến với API sản phẩm!");
 });
 
+app.use("/api/posts", postRouter);
+app.use("/api/products", productRouter);
+app.use("/api/author", authorRouter);
+app.use("/api/auth", userRouter);
 
-  app.use("/api/posts",postRouter)
-  app.use("/api/products",productRouter)
-  app.use("/api/author",authorRouter)
-  app.use("/api/auth",userRouter)
-  
-  
-  
-  app.listen(3000, () => {
+app.listen(3000, () => {
   console.log(`Server is running on port http://localhost:3000`);
 });
