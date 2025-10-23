@@ -16,9 +16,9 @@ const productSchema = new mongoose.Schema(
     },
     category_id: {
       type: mongoose.Schema.Types.String,
-      ref: "Category", // tham chiếu tới Category
+      ref: "Category",
       required: true,
-    }
+    },
   },
   { timestamps: true }
 );
